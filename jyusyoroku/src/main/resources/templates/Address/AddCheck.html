@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>登録確認画面</title>
+</head>
+<body>
+<h1>住所録管理システム：住所録登録</h1>
+<form th:action="@{/Address/List}" th:object="${userRequest}" th:method="post">
+    <table>
+      <tr>
+        <th class="cell_title">名前 ： </th>
+        <td th:field="*{name}"></td>
+      </tr>
+      <tr>
+        <th class="cell_title">住所 ：</th>
+        <td th:field="*{address}"></td>
+      </tr>
+      <tr>
+        <th class="cell_title">電話番号 ：</th>
+        <td  th:field="*{tel}"></td>
+      </tr>
+    </table>
+    <div class="btn_area_center"><input type="submit" value="登録" class="btn"></div>
+  </form>
+  <form th:action="@{/Address/Add}"><input type="submit" value="戻る" class="btn"></form>
+</body>
+</html>

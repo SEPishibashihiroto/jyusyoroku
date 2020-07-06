@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>住所一覧画面</title>
+<link href="/css/list.css" rel="stylesheet"></link>
+<meta charset="utf-8" />
+</head>
+<body>
+	<h1>住所録管理システム：住所録一覧</h1>
+
+	<form action="./Add">
+		<input type="submit" value="新規登録" class="btn">
+	</form>
+
+	<div class="listtable">
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>名前</th>
+					<th>住所</th>
+					<th>電話番号</th>
+					<th colspan="2"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${userlist}" th:object="${user}">
+					<td class="center" th:text="*{id}"></td>
+					<td th:text="*{name}"></td>
+					<td th:text="*{address}"></td>
+					<td class="center" th:text="*{tel}"></td>
+					<td><form action="./Edit">
+							<input type="submit" value="編集" class="btn">
+						</form></td>
+					<td><form action="./Delete">
+							<input type="submit" value="削除" class="btn">
+						</form></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<form action="/Add">
+		<input type="submit" value="新規登録" class="btn">
+	</form>
+</body>
+</html>
