@@ -1,4 +1,4 @@
-package com.example.demo.controller.user;
+package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class UserController {
 	 */
 	@GetMapping(value = "/Address/Add")
 	public String displayAdd(Model model) {
-		model.addAttribute("userRequest", new UserRequest());
+		model.addAttribute("addUserRequest", new UserRequest());
 		return "Address/Add";
 	}
 
@@ -59,8 +59,11 @@ public class UserController {
 	 * @return 登録画面
 	 */
 	@PostMapping(value = "/Address/AddCheck")
-	public String displayAddCheck(Model model) {
-		model.addAttribute("userRequest", new UserRequest());
+	public String displayAddCheck(@ModelAttribute("addUserRequest") UserRequest addUserRequest,Model model) {
+		model.addAttribute("addUserRequest", addUserRequest);
+		model.addAttribute("name", addUserRequest.getName());
+		model.addAttribute("address", addUserRequest.getAddress());
+		model.addAttribute("tel", addUserRequest.getTel());
 		return "Address/AddCheck";
 	}
 
@@ -69,9 +72,12 @@ public class UserController {
 	 * @param model Model
 	 * @return 住所一覧画面
 	 */
-	@GetMapping(value = "/Address/Edit")
+	UserRequest editreq;
+
+	@PostMapping(value = "/Address/Edit")
 	public String displayEdit(Model model) {
-		model.addAttribute("userRequest", new UserRequest());
+		editreq = new UserRequest();
+		model.addAttribute("userRequest", editreq);
 		return "Address/Edit";
 	}
 
@@ -80,9 +86,9 @@ public class UserController {
 	 * @param model Model
 	 * @return 編集画面
 	 */
-	@GetMapping(value = "/Address/EditCheck")
+	@PostMapping(value = "/Address/EditCheck")
 	public String displayEditCheck(Model model) {
-		model.addAttribute("userRequest", new UserRequest());
+		model.addAttribute("userRequest", editreq);
 		return "Address/EditCheck";
 	}
 
@@ -91,9 +97,8 @@ public class UserController {
 	 * @param model Model
 	 * @return 住所一覧画面
 	 */
-	@GetMapping(value = "/Address/Delete")
+	@PostMapping(value = "/Address/Delete")
 	public String displayDelete(Model model) {
-		model.addAttribute("userRequest", new UserRequest());
 		return "Address/Delete";
 	}
 
@@ -103,8 +108,9 @@ public class UserController {
 	 * @param model Model
 	 * @return ユーザー情報一覧画面
 	 */
-	@RequestMapping(value = "/Address/AddCheck", method = RequestMethod.POST)
-	public String create(@Validated @ModelAttribute UserRequest userRequest, BindingResult result, Model model) {
+	@RequestMapping(value = "/Address/adderrcheck", method = RequestMethod.POST)
+	public String adderrcheck(@Validated @ModelAttribute UserRequest addUserRequest, BindingResult result,
+			Model model) {
 		if (result.hasErrors()) {
 			List<String> errorList = new ArrayList<String>();
 			for (ObjectError error : result.getAllErrors()) {
@@ -113,8 +119,13 @@ public class UserController {
 			model.addAttribute("validationError", errorList);
 			return "Address/Add";
 		}
+		return "Address/AddCheck";
+	}
+
+	@RequestMapping(value = "/Address/create", method = RequestMethod.POST)
+	public String create(@Validated @ModelAttribute UserRequest userRequest) {
 		// ユーザー情報の登録
 		userService.create(userRequest);
-		return "redirect:/Address/List";
+		return "Address/List";
 	}
 }

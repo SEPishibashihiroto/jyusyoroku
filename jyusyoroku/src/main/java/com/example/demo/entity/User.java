@@ -36,9 +36,33 @@ public class User implements Serializable {
 	@Column(name = "address")
 	private String address;
 	/**
-   * 電話番号
-   */
-  @Column(name="tel")
-  private String tel;
+	* 電話番号
+	*/
+	@Column(name = "tel")
+	private String tel;
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
 
 }
