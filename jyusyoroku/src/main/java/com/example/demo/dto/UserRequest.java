@@ -32,6 +32,7 @@ public class UserRequest implements Serializable {
 	private String tel;
 
 	/*getter*/
+	/*
 	public String getName() {
 		return name;
 	}
@@ -43,5 +44,5 @@ public class UserRequest implements Serializable {
 	public String getTel() {
 		return tel;
 	}
-
+*/
 }

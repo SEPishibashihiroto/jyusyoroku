@@ -30,10 +30,10 @@
 					<td th:text="*{name}"></td>
 					<td th:text="*{address}"></td>
 					<td class="center" th:text="*{tel}"></td>
-					<td><form action="./Edit">
+					<td><form action="@{./{id}/Edit(id=${user.id})}" th:field="*{id}">
 							<input type="submit" value="編集" class="btn">
 						</form></td>
-					<td><form action="./Delete">
+					<td><form action="./Delete?id=*{id}">
 							<input type="submit" value="削除" class="btn">
 						</form></td>
 				</tr>
@@ -41,7 +41,7 @@
 		</table>
 	</div>
 
-	<form action="/Add">
+	<form action="./Add">
 		<input type="submit" value="新規登録" class="btn">
 	</form>
 </body>

@@ -24,7 +24,7 @@ public class User implements Serializable {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	/**
 	 * 名前
 	 */
@@ -41,6 +41,16 @@ public class User implements Serializable {
 	@Column(name = "tel")
 	private String tel;
 
+	/**
+	* 削除フラグ
+	*/
+	@Column(name = "delete_flg")
+	private final String delete_flg = "0";
+
+	public int getId() {
+		return id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -50,6 +60,10 @@ public class User implements Serializable {
 	}
 
 	public String getTel() {
+		return tel;
+	}
+
+	public String getDelete_flg() {
 		return tel;
 	}
 
