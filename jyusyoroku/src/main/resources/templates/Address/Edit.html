@@ -7,12 +7,12 @@
 </head>
 <body>
 	<h1>住所録管理システム：住所録編集</h1>
+
 	<table>
 		<tr th:if="${validationError}" th:each="error : ${validationError}">
 			<td style="color: brack;" th:text="${error}"></td>
 		</tr>
 	</table>
-
 
 	<form action="#" th:action="@{/Address/editerrcheck}"
 		th:object="${editUserRequest}" th:method="post">
@@ -34,6 +34,7 @@
 			<input type="submit" value="確認" class="btn">
 		</div>
 	</form>
+
 	<form th:action="@{/Address/List}">
 		<input type="submit" value="戻る" class="btn">
 	</form>

@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>住所録管理システム：住所録編集</h1>
-	<form action="#" th:action="@{/Address/edit}"
+	<form action="#" th:action="@{/Address/update}"
 		th:object="${editUserRequest}" th:method="post">
 		<input type="hidden" value="*{id}" th:field="*{id}">
 		<table>

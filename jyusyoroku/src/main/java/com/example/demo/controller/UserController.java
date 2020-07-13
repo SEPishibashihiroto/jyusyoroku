@@ -76,8 +76,7 @@ public class UserController {
 	 */
 
 	@GetMapping(value = "/Address/{id}/Edit")
-	public String displayEdit(@PathVariable int id,@ModelAttribute("userlist") List<User> userlist, Model model) {
-		userlist.get(id);
+	public String displayEdit(@PathVariable int id, Model model) {
 		User user = userService.findById(id);
 		UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
 		userUpdateRequest.setId(user.getId());
@@ -95,8 +94,9 @@ public class UserController {
 	 * @return 編集画面
 	 */
 	@PostMapping(value = "/Address/EditCheck")
-	public String displayEditCheck(@ModelAttribute("editUserRequest") UserRequest editUserRequest, Model model) {
+	public String displayEditCheck(@ModelAttribute("editUserRequest") UserUpdateRequest editUserRequest, Model model) {
 		model.addAttribute("editUserRequest", editUserRequest);
+		model.addAttribute("id", editUserRequest.getId());
 		model.addAttribute("name", editUserRequest.getName());
 		model.addAttribute("address", editUserRequest.getAddress());
 		model.addAttribute("tel", editUserRequest.getTel());
@@ -186,8 +186,8 @@ public class UserController {
 		return "Address/EditCheck";
 	}
 
-	@RequestMapping(value = "/Address/edit", method = RequestMethod.POST)
-	public String edit(@Validated @ModelAttribute("editUserRequest") UserUpdateRequest editUserRequest,
+	@RequestMapping(value = "/Address/update", method = RequestMethod.POST)
+	public String update(@Validated @ModelAttribute("editUserRequest") UserUpdateRequest editUserRequest,
 			BindingResult result,
 			Model model) {
 		// ユーザー情報の登録

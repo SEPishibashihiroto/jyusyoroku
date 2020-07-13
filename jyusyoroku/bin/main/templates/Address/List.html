@@ -30,9 +30,7 @@
 					<td th:text="*{name}"></td>
 					<td th:text="*{address}"></td>
 					<td class="center" th:text="*{tel}"></td>
-					<td><form action="@{./{id}/Edit(id=${user.id})}" th:field="*{id}">
-							<input type="submit" value="編集" class="btn">
-						</form></td>
+					<td><a th:href="@{/Address/{id}/Edit(id=${user.id})}">編集</a></td>
 					<td><form action="./Delete?id=*{id}">
 							<input type="submit" value="削除" class="btn">
 						</form></td>
