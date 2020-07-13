@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>編集確認画面</title>
+<link href="/css/check.css" rel="stylesheet"></link>
 </head>
 <body>
 	<h1>住所録管理システム：住所録編集</h1>
@@ -33,7 +34,7 @@
 		</div>
 	</form>
 
-	<form th:action="@{/Address/Edit}">
+	<form th:action="@{/Address/{id}/Edit(id=*{id})}" th:object="${editUserRequest}">
 		<input type="submit" value="戻る" class="btn">
 	</form>
 </body>

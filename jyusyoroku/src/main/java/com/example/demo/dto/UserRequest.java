@@ -30,19 +30,4 @@ public class UserRequest implements Serializable {
 	 */
 	@Pattern(regexp = "^\\d{3}-\\d{4}-\\d{4}$", message = "電話番号は「000-0000-0000」の形式で入力してください")
 	private String tel;
-
-	/*getter*/
-	/*
-	public String getName() {
-		return name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public String getTel() {
-		return tel;
-	}
-*/
 }

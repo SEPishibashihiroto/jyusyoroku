@@ -18,4 +18,9 @@ public class UserUpdateRequest extends UserRequest implements Serializable {
    */
   @NotNull
   private int id;
+  /**
+   * デリートフラグ
+   */
+  @NotNull
+  private String delete_flg = "0";
 }

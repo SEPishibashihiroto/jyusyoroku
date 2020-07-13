@@ -45,7 +45,7 @@ public class User implements Serializable {
 	* 削除フラグ
 	*/
 	@Column(name = "delete_flg")
-	private final String delete_flg = "0";
+	private String delete_flg;
 
 	public int getId() {
 		return id;

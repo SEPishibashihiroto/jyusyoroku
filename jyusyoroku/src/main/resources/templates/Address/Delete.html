@@ -4,8 +4,38 @@
 <head>
 <meta charset="UTF-8">
 <title>削除画面</title>
+<link href="/css/check.css" rel="stylesheet"></link>
 </head>
 <body>
 <h2>下記住所録を削除します。よろしいですか？</h2>
+<form action="#" th:action="@{/Address/delete}"
+		th:object="${deleteUserRequest}" th:method="post">
+		<input type="hidden" value="*{id}" th:field="*{id}">
+		<table>
+			<tr>
+				<th class="cell_title">名前 ：</th>
+				<td><span th:text="*{name}" th:field="*{name}"></span></td>
+				<td><input type="hidden" value="*{name}" th:field="*{name}"></td>
+			</tr>
+			<tr>
+				<th class="cell_title">住所 ：</th>
+				<td><span th:text="*{address}" th:field="*{address}"></span></td>
+				<td><input type="hidden" value="*{address}"
+					th:field="*{address}"></td>
+			</tr>
+			<tr>
+				<th class="cell_title">電話番号 ：</th>
+				<td><span th:text="*{tel}" th:field="*{tel}"></span></td>
+				<td><input type="hidden" value="*{tel}" th:field="*{tel}"></td>
+			</tr>
+		</table>
+		<div>
+			<input type="submit" value="登録" class="btn">
+		</div>
+	</form>
+
+	<form th:action="@{/Address/List}">
+		<input type="submit" value="戻る" class="btn">
+	</form>
 </body>
 </html>

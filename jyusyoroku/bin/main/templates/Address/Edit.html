@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>編集画面</title>
+<link href="/css/input.css" rel="stylesheet"></link>
 </head>
 <body>
 	<h1>住所録管理システム：住所録編集</h1>
@@ -16,6 +17,7 @@
 
 	<form action="#" th:action="@{/Address/editerrcheck}"
 		th:object="${editUserRequest}" th:method="post">
+		<input type="hidden" value="*{id}" th:field="*{id}">
 		<table>
 			<tr>
 				<th class="cell_title">名前</th>

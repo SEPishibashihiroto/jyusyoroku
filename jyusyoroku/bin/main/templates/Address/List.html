@@ -26,14 +26,21 @@
 			</thead>
 			<tbody>
 				<tr th:each="user : ${userlist}" th:object="${user}">
-					<td class="center" th:text="*{id}"></td>
-					<td th:text="*{name}"></td>
-					<td th:text="*{address}"></td>
-					<td class="center" th:text="*{tel}"></td>
-					<td><a th:href="@{/Address/{id}/Edit(id=${user.id})}">編集</a></td>
-					<td><form action="./Delete?id=*{id}">
+					<td class="id" th:text="*{id}"></td>
+					<td class="name" th:text="*{name}"></td>
+					<td class="address" th:text="*{address}"></td>
+					<td class="tel"
+						th:text="*{#strings.substring(tel,0,3)}+'-'+ *{#strings.substring(tel,3,7)}+'-'+ *{#strings.substring(tel,7,11)}"></td>
+					<td class="edit">
+						<form th:action="@{/Address/{id}/Edit(id=${user.id})}">
+							<input type="submit" value="編集" class="btn">
+						</form>
+					</td>
+					<td class="delete" >
+						<form th:action="@{/Address/{id}/Delete(id=${user.id})}">
 							<input type="submit" value="削除" class="btn">
-						</form></td>
+						</form>
+					</td>
 				</tr>
 			</tbody>
 		</table>

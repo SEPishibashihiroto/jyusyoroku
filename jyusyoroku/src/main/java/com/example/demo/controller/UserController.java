@@ -50,8 +50,16 @@ public class UserController {
 	 * @return 住所一覧画面
 	 */
 	@GetMapping(value = "/Address/Add")
-	public String displayAdd1(Model model) {
-		model.addAttribute("addUserRequest", new UserRequest());
+	public String displayAdd(UserRequest addUserRequest, Model model) {
+		if (addUserRequest.equals(null)) {
+			model.addAttribute("addUserRequest", new UserRequest());
+		} else {
+			model.addAttribute("addUserRequest", addUserRequest);
+			model.addAttribute("name", addUserRequest.getName());
+			model.addAttribute("address", addUserRequest.getAddress());
+			model.addAttribute("tel", addUserRequest.getTel());
+		}
+
 		return "Address/Add";
 	}
 
@@ -81,7 +89,8 @@ public class UserController {
 		UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
 		userUpdateRequest.setId(user.getId());
 		userUpdateRequest.setName(user.getName());
-		userUpdateRequest.setTel(user.getTel());
+		userUpdateRequest.setTel((user.getTel().equals("")) ? user.getTel()
+				: new StringBuilder(user.getTel()).insert(3, "-").insert(8, "-").toString());
 		userUpdateRequest.setAddress(user.getAddress());
 
 		model.addAttribute("editUserRequest", userUpdateRequest);
@@ -108,19 +117,29 @@ public class UserController {
 	 * @param model Model
 	 * @return 住所一覧画面
 	 */
-	@GetMapping(value = "/Address/Delete")
-	public String displayDelete(Model model) {
+	@GetMapping(value = "/Address/{id}/Delete")
+	public String displayDelete(@PathVariable int id, Model model) {
+		User user = userService.findById(id);
+		UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
+		userUpdateRequest.setId(user.getId());
+		userUpdateRequest.setName(user.getName());
+		userUpdateRequest.setTel((user.getTel().equals("")) ? user.getTel()
+				: new StringBuilder(user.getTel()).insert(3, "-").insert(8, "-").toString());
+		userUpdateRequest.setAddress(user.getAddress());
+		userUpdateRequest.setDelete_flg(user.getDelete_flg());
+
+		model.addAttribute("deleteUserRequest", userUpdateRequest);
 		return "Address/Delete";
 	}
 
 	/**
-	 * ユーザー新規登録
+	 * ユーザー新規登録  エラー確認
 	 * @param userRequest リクエストデータ
 	 * @param model Model
 	 * @return ユーザー情報一覧画面
 	 */
 	@RequestMapping(value = "/Address/adderrcheck", method = RequestMethod.POST)
-	public String adderrcheck(@Validated @ModelAttribute("addUserRequest") UserRequest addUserRequest,
+	public String adderrcheck(@Validated @ModelAttribute UserRequest addUserRequest,
 			BindingResult result,
 			Model model) {
 		if (result.hasErrors()) {
@@ -142,6 +161,12 @@ public class UserController {
 		return "Address/AddCheck";
 	}
 
+	/**
+	 * ユーザー新規登録  登録
+	 * @param userRequest リクエストデータ
+	 * @param model Model
+	 * @return ユーザー情報一覧画面
+	 */
 	@RequestMapping(value = "/Address/create", method = RequestMethod.POST)
 	public String create(@Validated @ModelAttribute("addUserRequest") UserRequest addUserRequest, BindingResult result,
 			Model model) {
@@ -158,7 +183,7 @@ public class UserController {
 	}
 
 	/**
-	 * 登録編集
+	 * 登録編集  エラー確認
 	 * @param userRequest リクエストデータ
 	 * @param model Model
 	 * @return ユーザー情報一覧画面
@@ -186,6 +211,12 @@ public class UserController {
 		return "Address/EditCheck";
 	}
 
+	/**
+	 * 登録編集  編集
+	 * @param userRequest リクエストデータ
+	 * @param model Model
+	 * @return ユーザー情報一覧画面
+	 */
 	@RequestMapping(value = "/Address/update", method = RequestMethod.POST)
 	public String update(@Validated @ModelAttribute("editUserRequest") UserUpdateRequest editUserRequest,
 			BindingResult result,
@@ -199,4 +230,29 @@ public class UserController {
 		userService.update(editUserRequest);
 		return "redirect:/Address/List";
 	}
+
+	/**
+	 * 削除  delete_flgを1にupdate
+	 * @param userRequest リクエストデータ
+	 * @param model Model
+	 * @return ユーザー情報一覧画面
+	 */
+	@RequestMapping(value = "/Address/delete", method = RequestMethod.POST)
+	public String delete(@Validated @ModelAttribute("deleteUserRequest") UserUpdateRequest deleteUserRequest,
+			BindingResult result,
+			Model model) {
+		// ユーザー情報の登録
+		String deleteflg = "1";
+		model.addAttribute("delete_flg", deleteflg);
+		deleteUserRequest.setDelete_flg(deleteflg);
+		model.addAttribute("deleteUserRequest", deleteUserRequest);
+		model.addAttribute("id", deleteUserRequest.getId());
+
+		System.out.println("id : " + deleteUserRequest.getId());
+		System.out.println("delete_flg : " + deleteUserRequest.getDelete_flg());
+
+		userService.delete(deleteUserRequest);
+		return "redirect:/Address/List";
+	}
+
 }

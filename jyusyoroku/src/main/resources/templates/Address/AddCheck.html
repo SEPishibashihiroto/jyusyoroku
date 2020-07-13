@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>登録確認画面</title>
+<link href="/css/check.css" rel="stylesheet"></link>
 </head>
 <body>
 	<h1>住所録管理システム：住所録登録</h1>
@@ -32,8 +33,7 @@
 		</div>
 	</form>
 
-	<form th:action="@{/Address/Add}" th:object="${addUserRequest}"
-		th:method="post">
+	<form th:action="@{/Address/Add}" th:object="${addUserRequest}">
 		<input type="hidden" value="*{name}" th:field="*{name}"> <input
 			type="hidden" value="*{address}" th:field="*{address}"> <input
 			type="hidden" value="*{tel}" th:field="*{tel}"> <input

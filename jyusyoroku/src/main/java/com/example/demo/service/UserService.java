@@ -29,6 +29,7 @@ public class UserService {
 	 * @return 検索結果
 	 */
 	public List<User> searchAll() {
+
 		return userRepository.findAll();
 	}
 
@@ -49,18 +50,28 @@ public class UserService {
 	   * ユーザー情報 主キー検索
 	   * @return 検索結果
 	   */
-	  public User findById(int id) {
-	    return userRepository.findById(id).get();
-	  }
+	public User findById(int id) {
+		return userRepository.findById(id).get();
+	}
 
 	/**
-     * ユーザー情報 更新
-     * @param user ユーザー情報
-     */
+	 * ユーザー情報 更新
+	 * @param user ユーザー情報
+	 */
 	public void update(UserUpdateRequest userUpdateRequest) {
-        User user = findById(userUpdateRequest.getId());
-        user.setAddress(userUpdateRequest.getAddress());
-        user.setName(userUpdateRequest.getName());
-        user.setTel(userUpdateRequest.getTel());
-    }
+		User user = findById(userUpdateRequest.getId());
+		user.setAddress(userUpdateRequest.getAddress());
+		user.setName(userUpdateRequest.getName());
+		user.setTel((userUpdateRequest.getTel().equals("")) ? userUpdateRequest.getTel()
+				: userUpdateRequest.getTel().replace("-", ""));
+	}
+
+	/**
+	 * ユーザー情報 削除
+	 * @param user ユーザー情報
+	 */
+	public void delete(UserUpdateRequest deleteUserRequest) {
+		User user = findById(deleteUserRequest.getId());
+		user.setDelete_flg(deleteUserRequest.getDelete_flg());
+	}
 }

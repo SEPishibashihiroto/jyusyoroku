@@ -9,9 +9,14 @@ head,body{
 	padding: 3px 5px;
 }
 table{
-    width: 90%;
+    width: 100%;
     border-collapse: collapse;
 }
+
 th,td{
 	border:1px solid #000;
+}
+
+.address{
+	width:50%;
 }
