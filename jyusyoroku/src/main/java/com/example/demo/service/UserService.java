@@ -1,7 +1,5 @@
 package com.example.demo.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +28,13 @@ public class UserService {
 	 * ユーザー情報 全検索
 	 * @return 検索結果
 	 */
-	public List<User> searchAll() {
-
-		return userRepository.findAll();
+	public Page<User> getUsers(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	}
 
-
-	public Page<User> getUsers(Pageable pageable) {
-        return userRepository.findAll(pageable);
-    }
+	public Page<User> getSeachUsers(String SeachName,Pageable pageable) {
+		return userRepository.findSeachAll(SeachName, pageable);
+	}
 
 	/**
 	 * ユーザー情報 新規登録

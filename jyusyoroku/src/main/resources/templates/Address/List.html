@@ -9,29 +9,61 @@
 <body>
 	<h1>住所録管理システム：住所録一覧</h1>
 
-	<!-- 登録 -->
-	<form th:action="@{/Address/Add}">
-		<input type="submit" value="新規登録" class="btn">
-	</form>
+	<div class="headmenu">
+		<!-- 登録 -->
+		<div class="leftmenu">
+			<form th:action="@{/Address/Add}">
+				<input type="submit" value="新規登録" class="btn">
+			</form>
+		</div>
+
+		<!-- 検索 -->
+		<div class="rightmenu">
+			<form th:action="@{/Address/Seach}">
+				<span>検索：</span><input type="text" class="textbox"><br>
+				<input type="submit" value="検索" class="btn">
+			</form>
+		</div>
+	</div>
+
+
 
 	<!-- ページング -->
-	<div>
+	<div class="paging">
 		<ul>
-			<li style="display: inline;"><span th:if="${page.first}">&lt;&lt;前</span>
-				<a th:if="${!page.first}"
-				th:href="@{/Address/{page}/List(page = ${page.number} - 1)}">
-					&lt;&lt;前 </a></li>
-			<li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+			<!-- 最初のページへ << -->
+			<li style="display: inline;"><span th:if="${page.first}">
+					&lt;&lt; </span> <a th:if="${!page.first}" th:href="@{/Address/List}">&lt;&lt;
+			</a></li>
+
+			<!-- 前のページへ < -->
+			<li style="display: inline;"><span th:if="${page.first}">
+					&lt; </span> <a th:if="${!page.first}"
+				th:href="@{/Address/List(page = ${page.number} - 1)}">&lt; </a></li>
+
+			<!-- 各ページ作成 1~n -->
+			<li
+				th:each="i : ${page.totalPages <= 5} ? ${#numbers.sequence(0, page.totalPages - 1)}
+				:(${page.last or page.number == page.totalPages - 2} ? ${#numbers.sequence(page.totalPages - 5, page.totalPages - 1)}
+				:(${page.number >= 3}?${#numbers.sequence(page.number - 2, page.number + 2)}
+				: ${#numbers.sequence(0, 4)}))"
 				style="display: inline; margin-left: 10px;"><span
 				th:if="${i} == ${page.number}" th:text="${i + 1 + ' |'}">1</span> <a
 				th:if="${i} != ${page.number}"
-				th:href="@{/Address/{page}/List(page = ${i})}"> <span
-					th:text="${i+1 + ' |'}">1</span>
+				th:href="@{/Address/List(page = ${i})}"> <span
+					th:text="${i + 1 + ' |'}">1</span>
 			</a></li>
+
+			<!-- 次のページへ > -->
 			<li style="display: inline; margin-left: 10px;"><span
-				th:if="${page.last}">次&gt;&gt;</span> <a th:if="${!page.last}"
-				th:href="@{/Address/{page}/List(page = (${page.number} + 1))}">
-					次&gt;&gt; </a></li>
+				th:if="${page.last}"> &gt; </span> <a th:if="${!page.last}"
+				th:href="@{/Address/List(page = (${page.number} + 1))}">&gt; </a></li>
+
+			<!-- 最終ページへ >> -->
+			<li style="display: inline; margin-left: 10px;"><span
+				th:if="${page.last}"> &gt;&gt; </span> <a th:if="${!page.last}"
+				th:href="@{/Address/List(page = (${page.totalPages-1}))}">&gt;&gt;
+			</a></li>
 		</ul>
 	</div>
 
@@ -72,21 +104,39 @@
 	<!-- ページング -->
 	<div>
 		<ul>
-			<li style="display: inline;"><span th:if="${page.first}">&lt;&lt;前</span>
-				<a th:if="${!page.first}"
-				th:href="@{/Address/{page}/List(page = ${page.number} - 1)}">
-					&lt;&lt;前 </a></li>
-			<li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
-				style="display: inline; margin-left: 10px;"><span
-				th:if="${i} == ${page.number}" th:text="${i + 1}">1</span> <a
-				th:if="${i} != ${page.number}"
-				th:href="@{/Address/{page}/List(page = ${i})}"> <span
-					th:text="${i+1}">1</span>
+			<!-- 最初のページへ << -->
+			<li style="display: inline;"><span th:if="${page.first}">
+					&lt;&lt; </span> <a th:if="${!page.first}" th:href="@{/Address/List}">&lt;&lt;
 			</a></li>
+
+			<!-- 前のページへ < -->
+			<li style="display: inline;"><span th:if="${page.first}">
+					&lt; </span> <a th:if="${!page.first}"
+				th:href="@{/Address/List(page = ${page.number} - 1)}">&lt; </a></li>
+
+			<!-- 各ページ作成 1~n -->
+			<li
+				th:each="i : ${page.totalPages <= 5} ? ${#numbers.sequence(0, page.totalPages - 1)}
+				:(${page.last or page.number == page.totalPages - 2} ? ${#numbers.sequence(page.totalPages - 5, page.totalPages - 1)}
+				:(${page.number >= 3}?${#numbers.sequence(page.number - 2, page.number + 2)}
+				: ${#numbers.sequence(0, 4)}))"
+				style="display: inline; margin-left: 10px;"><span
+				th:if="${i} == ${page.number}" th:text="${i + 1 + ' |'}">1</span> <a
+				th:if="${i} != ${page.number}"
+				th:href="@{/Address/List(page = ${i})}"> <span
+					th:text="${i + 1 + ' |'}">1</span>
+			</a></li>
+
+			<!-- 次のページへ > -->
 			<li style="display: inline; margin-left: 10px;"><span
-				th:if="${page.last}">次&gt;&gt;</span> <a th:if="${!page.last}"
-				th:href="@{/Address/{page}/List(page = (${page.number} + 1))}">
-					次&gt;&gt; </a></li>
+				th:if="${page.last}"> &gt; </span> <a th:if="${!page.last}"
+				th:href="@{/Address/List(page = (${page.number} + 1))}">&gt; </a></li>
+
+			<!-- 最終ページへ >> -->
+			<li style="display: inline; margin-left: 10px;"><span
+				th:if="${page.last}"> &gt;&gt; </span> <a th:if="${!page.last}"
+				th:href="@{/Address/List(page = (${page.totalPages-1}))}">&gt;&gt;
+			</a></li>
 		</ul>
 	</div>
 

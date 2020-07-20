@@ -24,8 +24,6 @@ import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 
-
-
 /**
  * ユーザー情報 Controller
  */
@@ -42,12 +40,26 @@ public class UserController {
 	 * @param model Model
 	 * @return 住所一覧画面
 	 */
-	@GetMapping(value = "/Address/{id}/List")
-	public String displayList(@PageableDefault(page = 0, size = 10) Pageable pageable,Model model) {
-		Page<User> playerPage = userService.getUsers(pageable);
+	//検索なし
+	@GetMapping(value = "/Address/List")
+	public String displayList(@PageableDefault(page = 0, size = 10) Pageable pageable, Model model) {
+		Page<User> userPage = userService.getUsers(pageable);
 
-        model.addAttribute("page", playerPage);
-        model.addAttribute("users", playerPage.getContent());
+		model.addAttribute("page", userPage);
+		model.addAttribute("users", userPage.getContent());
+
+		return "Address/List";
+	}
+
+	//検索あり
+	@GetMapping(value = "/Address/Seach")
+	public String displaySeachList(@PageableDefault(page = 0, size = 10) Pageable pageable, Model model,
+			String SeachName) {
+		Page<User> userPage = userService.getSeachUsers(SeachName, pageable);
+
+		model.addAttribute("page", userPage);
+		model.addAttribute("users", userPage.getContent());
+		model.addAttribute("SeachName", SeachName);
 
 		return "Address/List";
 	}
@@ -183,9 +195,6 @@ public class UserController {
 		model.addAttribute("name", addUserRequest.getName());
 		model.addAttribute("address", addUserRequest.getAddress());
 		model.addAttribute("tel", addUserRequest.getTel());
-		System.out.println(addUserRequest.getName());
-		System.out.println(addUserRequest.getAddress());
-		System.out.println(addUserRequest.getTel());
 		userService.create(addUserRequest);
 		return "redirect:/Address/List";
 	}
@@ -255,9 +264,6 @@ public class UserController {
 		deleteUserRequest.setDelete_flg(deleteflg);
 		model.addAttribute("deleteUserRequest", deleteUserRequest);
 		model.addAttribute("id", deleteUserRequest.getId());
-
-		System.out.println("id : " + deleteUserRequest.getId());
-		System.out.println("delete_flg : " + deleteUserRequest.getDelete_flg());
 
 		userService.delete(deleteUserRequest);
 		return "redirect:/Address/List";

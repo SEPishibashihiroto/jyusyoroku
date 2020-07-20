@@ -9,7 +9,7 @@ head,body{
 	padding: 3px 5px;
 }
 table{
-    width: 100%;
+    width:90%;
     border-collapse: collapse;
 }
 
@@ -19,4 +19,5 @@ th,td{
 
 .address{
 	width:50%;
+	background-color:red;
 }
