@@ -9,9 +9,30 @@
 <body>
 	<h1>住所録管理システム：住所録一覧</h1>
 
-	<form action="./Add">
+	<form th:action="@{/Address/Add}">
 		<input type="submit" value="新規登録" class="btn">
 	</form>
+
+	<div>
+		<ul>
+			<li style="display: inline;"><span th:if="${page.first}">&lt;&lt;前</span>
+				<a th:if="${!page.first}"
+				th:href="@{/Address/{page}/List(page = ${page.number} - 1)}">
+					&lt;&lt;前 </a></li>
+			<li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+				style="display: inline; margin-left: 10px;"><span
+				th:if="${i} == ${page.number}" th:text="${i + 1 + ' |'}">1</span> <a
+				th:if="${i} != ${page.number}"
+				th:href="@{/Address/{page}/List(page = ${i})}"> <span
+					th:text="${i+1 + ' |'}">1</span>
+			</a></li>
+			<li style="display: inline; margin-left: 10px;"><span
+				th:if="${page.last}">次&gt;&gt;</span> <a th:if="${!page.last}"
+				th:href="@{/Address/{page}/List(page = (${page.number} + 1))}">
+					次&gt;&gt; </a></li>
+		</ul>
+	</div>
+
 
 	<div class="listtable">
 		<table>
@@ -25,7 +46,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="user : ${userlist}" th:object="${user}">
+				<tr th:each="user : ${users}" th:object="${user}">
 					<td class="id" th:text="*{id}"></td>
 					<td class="name" th:text="*{name}"></td>
 					<td class="address" th:text="*{address}"></td>
@@ -36,7 +57,7 @@
 							<input type="submit" value="編集" class="btn">
 						</form>
 					</td>
-					<td class="delete" >
+					<td class="delete">
 						<form th:action="@{/Address/{id}/Delete(id=${user.id})}">
 							<input type="submit" value="削除" class="btn">
 						</form>
@@ -46,7 +67,27 @@
 		</table>
 	</div>
 
-	<form action="./Add">
+	<div>
+		<ul>
+			<li style="display: inline;"><span th:if="${page.first}">&lt;&lt;前</span>
+				<a th:if="${!page.first}"
+				th:href="@{/Address/{page}/List(page = ${page.number} - 1)}">
+					&lt;&lt;前 </a></li>
+			<li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+				style="display: inline; margin-left: 10px;"><span
+				th:if="${i} == ${page.number}" th:text="${i + 1}">1</span> <a
+				th:if="${i} != ${page.number}"
+				th:href="@{/Address/{page}/List(page = ${i})}"> <span
+					th:text="${i+1}">1</span>
+			</a></li>
+			<li style="display: inline; margin-left: 10px;"><span
+				th:if="${page.last}">次&gt;&gt;</span> <a th:if="${!page.last}"
+				th:href="@{/Address/{page}/List(page = (${page.number} + 1))}">
+					次&gt;&gt; </a></li>
+		</ul>
+	</div>
+
+	<form th:action="@{/Address/Add}">
 		<input type="submit" value="新規登録" class="btn">
 	</form>
 </body>

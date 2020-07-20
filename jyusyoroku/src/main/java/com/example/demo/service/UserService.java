@@ -5,6 +5,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.UserRequest;
@@ -32,6 +34,11 @@ public class UserService {
 
 		return userRepository.findAll();
 	}
+
+
+	public Page<User> getUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
 
 	/**
 	 * ユーザー情報 新規登録

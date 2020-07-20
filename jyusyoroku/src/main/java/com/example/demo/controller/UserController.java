@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +24,8 @@ import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 
+
+
 /**
  * ユーザー情報 Controller
  */
@@ -37,10 +42,13 @@ public class UserController {
 	 * @param model Model
 	 * @return 住所一覧画面
 	 */
-	@GetMapping(value = "/Address/List")
-	public String displayList(Model model) {
-		List<User> userlist = userService.searchAll();
-		model.addAttribute("userlist", userlist);
+	@GetMapping(value = "/Address/{id}/List")
+	public String displayList(@PageableDefault(page = 0, size = 10) Pageable pageable,Model model) {
+		Page<User> playerPage = userService.getUsers(pageable);
+
+        model.addAttribute("page", playerPage);
+        model.addAttribute("users", playerPage.getContent());
+
 		return "Address/List";
 	}
 

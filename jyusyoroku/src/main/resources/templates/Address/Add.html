@@ -36,7 +36,7 @@
 			<input type="submit" value="確認" class="btn">
 		</div>
 	</form>
-	<form th:action="@{/Address/List}">
+	<form th:action="@{/Address/{page}/List(page = 1)}">
 		<input type="submit" value="戻る" class="btn">
 	</form>
 </body>
