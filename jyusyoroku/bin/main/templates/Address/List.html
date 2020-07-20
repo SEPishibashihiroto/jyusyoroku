@@ -9,10 +9,12 @@
 <body>
 	<h1>住所録管理システム：住所録一覧</h1>
 
+	<!-- 登録 -->
 	<form th:action="@{/Address/Add}">
 		<input type="submit" value="新規登録" class="btn">
 	</form>
 
+	<!-- ページング -->
 	<div>
 		<ul>
 			<li style="display: inline;"><span th:if="${page.first}">&lt;&lt;前</span>
@@ -33,7 +35,7 @@
 		</ul>
 	</div>
 
-
+	<!-- list表示 -->
 	<div class="listtable">
 		<table>
 			<thead>
@@ -67,6 +69,7 @@
 		</table>
 	</div>
 
+	<!-- ページング -->
 	<div>
 		<ul>
 			<li style="display: inline;"><span th:if="${page.first}">&lt;&lt;前</span>
@@ -87,6 +90,7 @@
 		</ul>
 	</div>
 
+	<!-- 登録 -->
 	<form th:action="@{/Address/Add}">
 		<input type="submit" value="新規登録" class="btn">
 	</form>
