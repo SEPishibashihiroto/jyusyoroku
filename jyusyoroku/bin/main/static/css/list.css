@@ -1,63 +1,91 @@
 @charset "UTF-8";
-head,body{
-	width:960px;
-	margin:0 auto;
+
+head, body {
+	width: 960px;
+	margin: 0 auto;
 }
-.btn{
-	width:100px;
+
+.btn {
+	width: 100px;
 	background-color: #777777;
 	border: 1px solid #000;
 	padding: 3px 5px;
 }
-table{
-    width:90%;
-    border-collapse: collapse;
+.tdbtn{
+	width: 100px;
+	height:36px;
+	background-color: #777777;
+	border: 1px solid #000;
+	padding:0;
 }
 
-th,td{
-	border:1px solid #000;
-}
-.name{
-	width:20%;
-	text-align:center;
-}
-.address{
-	width:35%;
-	text-align:center;
-}
-.tel{
-	width:20%;
-	text-align:center;
-}
-.edit{
-	width:10%;
-}
-.delete{
-	width:10%;
+table {
+	width: 90%;
+	border-collapse: collapse;
 }
 
-.headmenu{
-	height:70px;
+th {
+	background-color: #75A9FF;
 }
 
-.leftmenu{
-	margin-top:20px;
+th, td {
+	border: 1px solid #000;
+	height:35px;
+}
+
+.id {
+	text-align: right;
+}
+
+.name {
+	width: 20%;
+	text-align: center;
+}
+
+.address {
+	width: 35%;
+	text-align: center;
+}
+
+.tel {
+	width: 20%;
+	text-align: center;
+}
+
+.edit {
+	width: 10%;
+}
+
+.delete {
+	width: 10%;
+}
+
+.headmenu {
+	height: 70px;
+}
+
+.leftmenu {
+	margin-top: 20px;
 	float: left;
 }
 
-.rightmenu{
+.rightmenu {
 	float: right;
-	margin-top:8px;
-	margin-right:93px;
+	margin-top: 8px;
+	margin-right: 93px;
 }
-.seachbtn{
-	width:176px;
-	margin-left:48px;
+
+.seachbtn {
+	width: 175px;
+	margin-left: 48px;
 }
-.seachtext{
-	height:21px;
+
+.seachtext {
+	height: 21px;
+	border: 1px solid #000;
 }
-.paging ul{
-	padding:0;
-	margin:10px 0;
+
+.paging ul {
+	padding: 0;
+	margin: 10px 0;
 }

@@ -88,18 +88,20 @@
 					<td class="id" th:text="*{id}"></td>
 					<td class="name" th:text="*{name}"></td>
 					<td class="address" th:text="*{address}"></td>
-					<td class="tel"
+					<td class="tel" th:if="*{tel.equals('')}" th:text="*{tel}"></td>
+					<td class="tel" th:if="*{!(tel.equals(''))}"
 						th:text="*{#strings.substring(tel,0,3)}+'-'+ *{#strings.substring(tel,3,7)}+'-'+ *{#strings.substring(tel,7,11)}"></td>
 					<td class="edit">
 						<form th:action="@{/Address/{id}/Edit(id=${user.id})}">
-							<input type="submit" value="編集" class="btn">
+							<input type="submit" value="編集" class="tdbtn">
 						</form>
 					</td>
 					<td class="delete">
 						<form th:action="@{/Address/{id}/Delete(id=${user.id})}">
-							<input type="submit" value="削除" class="btn">
+							<input type="submit" value="削除" class="tdbtn">
 						</form>
 					</td>
+
 				</tr>
 			</tbody>
 		</table>

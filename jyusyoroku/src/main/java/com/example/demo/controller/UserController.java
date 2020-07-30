@@ -65,7 +65,7 @@ public class UserController {
 	 */
 	@GetMapping(value = "/Address/Add")
 	public String displayAdd(UserRequest addUserRequest, Model model) {
-		if (addUserRequest.equals(null)) {
+		if (addUserRequest.getName() == null) {
 			model.addAttribute("addUserRequest", new UserRequest());
 		} else {
 			model.addAttribute("addUserRequest", addUserRequest);
@@ -82,6 +82,7 @@ public class UserController {
 	 * @param model Model
 	 * @return 登録画面
 	 */
+	/*
 	@PostMapping(value = "/Address/AddCheck")
 	public String displayAddCheck(@ModelAttribute("addUserRequest") UserRequest addUserRequest, Model model) {
 		model.addAttribute("addUserRequest", addUserRequest);
@@ -90,7 +91,7 @@ public class UserController {
 		model.addAttribute("tel", addUserRequest.getTel());
 		return "Address/AddCheck";
 	}
-
+	*/
 	/**
 	 * 編集画面を表示
 	 * @param model Model
@@ -153,7 +154,7 @@ public class UserController {
 	 * @return ユーザー情報一覧画面
 	 */
 	@RequestMapping(value = "/Address/adderrcheck", method = RequestMethod.POST)
-	public String adderrcheck(@Validated @ModelAttribute UserRequest addUserRequest,
+	public String adderrcheck(@Validated @ModelAttribute("addUserRequest") UserRequest addUserRequest,
 			BindingResult result,
 			Model model) {
 		if (result.hasErrors()) {

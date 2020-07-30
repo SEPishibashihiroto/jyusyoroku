@@ -42,6 +42,7 @@ public class UserService {
 		user.setAddress(addUserRequest.getAddress());
 		user.setTel((addUserRequest.getTel().equals("")) ? addUserRequest.getTel()
 				: addUserRequest.getTel().replace("-", ""));
+		user.setDelete_flg("0");
 		userRepository.save(user);
 	}
 
