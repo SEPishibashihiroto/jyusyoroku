@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.demo.dto.SeachRequest;
 import com.example.demo.dto.UserRequest;
 import com.example.demo.dto.UserUpdateRequest;
 import com.example.demo.entity.User;
@@ -42,24 +43,17 @@ public class UserController {
 	 */
 	//検索なし
 	@GetMapping(value = "/Address/List")
-	public String displayList(@PageableDefault(page = 0, size = 10) Pageable pageable, Model model) {
-		Page<User> userPage = userService.getUsers(pageable);
+	public String displayList(@PageableDefault(page = 0, size = 10) Pageable pageable, Model model,
+			@ModelAttribute("SeachRequest") SeachRequest SeachRequest) {
 
-		model.addAttribute("page", userPage);
-		model.addAttribute("users", userPage.getContent());
+		String SeachName = (SeachRequest.getSeachName() == null) ? "" : SeachRequest.getSeachName();
 
-		return "Address/List";
-	}
-
-	//検索あり
-	@GetMapping(value = "/Address/Seach")
-	public String displaySeachList(@PageableDefault(page = 0, size = 10) Pageable pageable, Model model,
-			String SeachName) {
 		Page<User> userPage = userService.getSeachUsers(SeachName, pageable);
 
 		model.addAttribute("page", userPage);
 		model.addAttribute("users", userPage.getContent());
 		model.addAttribute("SeachName", SeachName);
+		model.addAttribute("SeachRequest", SeachRequest);
 
 		return "Address/List";
 	}

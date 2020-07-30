@@ -28,10 +28,6 @@ public class UserService {
 	 * ユーザー情報 全検索
 	 * @return 検索結果
 	 */
-	public Page<User> getUsers(Pageable pageable) {
-		return userRepository.findAll(pageable);
-	}
-
 	public Page<User> getSeachUsers(String SeachName,Pageable pageable) {
 		return userRepository.findSeachAll(SeachName, pageable);
 	}
