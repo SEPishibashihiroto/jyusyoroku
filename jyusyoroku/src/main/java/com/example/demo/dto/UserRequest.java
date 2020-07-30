@@ -19,12 +19,14 @@ public class UserRequest implements Serializable {
 	@NotEmpty(message = "名前は必須項目です")
 	@Size(max = 40, message = "名前は全角20文字以内で入力してください")
 	private String name;
+
 	/**
 	 * 住所
 	 */
 	@NotEmpty(message = "住所は必須項目です")
 	@Size(max = 80, message = "住所は全角40文字以内で入力してください")
 	private String address;
+
 	/**
 	 * 電話番号
 	 */

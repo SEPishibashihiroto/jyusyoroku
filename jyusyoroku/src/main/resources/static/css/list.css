@@ -1,6 +1,7 @@
 @charset "UTF-8";
 head,body{
 	width:960px;
+	margin:0 auto;
 }
 .btn{
 	width:100px;
@@ -16,7 +17,47 @@ table{
 th,td{
 	border:1px solid #000;
 }
-
+.name{
+	width:20%;
+	text-align:center;
+}
 .address{
-	width:40%;
+	width:35%;
+	text-align:center;
+}
+.tel{
+	width:20%;
+	text-align:center;
+}
+.edit{
+	width:10%;
+}
+.delete{
+	width:10%;
+}
+
+.headmenu{
+	height:70px;
+}
+
+.leftmenu{
+	margin-top:20px;
+	float: left;
+}
+
+.rightmenu{
+	float: right;
+	margin-top:8px;
+	margin-right:93px;
+}
+.seachbtn{
+	width:176px;
+	margin-left:48px;
+}
+.seachtext{
+	height:21px;
+}
+.paging ul{
+	padding:0;
+	margin:10px 0;
 }

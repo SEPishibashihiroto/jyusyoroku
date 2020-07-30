@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
 <title>削除画面</title>
 <link href="/css/check.css" rel="stylesheet"></link>
+<meta charset="utf-8" />
 </head>
 <body>
 <h2>下記住所録を削除します。よろしいですか？</h2>
@@ -13,18 +13,18 @@
 		<input type="hidden" value="*{id}" th:field="*{id}">
 		<table>
 			<tr>
-				<th class="cell_title">名前 ：</th>
+				<th class="cell_title">名前</th><th>:</th>
 				<td><span th:text="*{name}" th:field="*{name}"></span></td>
 				<td><input type="hidden" value="*{name}" th:field="*{name}"></td>
 			</tr>
 			<tr>
-				<th class="cell_title">住所 ：</th>
+				<th class="cell_title">住所</th><th>:</th>
 				<td><span th:text="*{address}" th:field="*{address}"></span></td>
 				<td><input type="hidden" value="*{address}"
 					th:field="*{address}"></td>
 			</tr>
 			<tr>
-				<th class="cell_title">電話番号 ：</th>
+				<th class="cell_title">電話番号</th><th>:</th>
 				<td><span th:text="*{tel}" th:field="*{tel}"></span></td>
 				<td><input type="hidden" value="*{tel}" th:field="*{tel}"></td>
 			</tr>

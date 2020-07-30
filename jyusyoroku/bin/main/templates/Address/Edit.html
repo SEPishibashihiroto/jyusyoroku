@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
 <title>編集画面</title>
 <link href="/css/input.css" rel="stylesheet"></link>
+<meta charset="utf-8" />
 </head>
 <body>
 	<h1>住所録管理システム：住所録編集</h1>
@@ -20,15 +20,15 @@
 		<input type="hidden" value="*{id}" th:field="*{id}">
 		<table>
 			<tr>
-				<th class="cell_title">名前</th>
+				<th class="cell_title">名前</th><th>:</th>
 				<td><input type="text" th:field="*{name}"></td>
 			</tr>
 			<tr>
-				<th class="cell_title">住所</th>
+				<th class="cell_title">住所</th><th>:</th>
 				<td><input type="text" th:field="*{address}"></td>
 			</tr>
 			<tr>
-				<th class="cell_title">電話番号</th>
+				<th class="cell_title">電話番号</th><th>:</th>
 				<td><input type="text" th:field="*{tel}"></td>
 			</tr>
 		</table>

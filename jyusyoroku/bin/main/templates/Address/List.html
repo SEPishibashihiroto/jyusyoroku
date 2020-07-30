@@ -21,8 +21,9 @@
 		<div class="rightmenu">
 			<form th:action="@{/Address/List}" th:object="${SeachRequest}"
 				th:method="get">
-				<span>検索：</span><input type="text" value="*{id}" th:field="*{SeachName}"><br>
-				<input type="submit" value="検索" class="btn">
+				<span>検索：</span><input type="text" value="*{id}"
+					th:field="*{SeachName}" class="seachtext"><br> <input
+					type="submit" value="検索" class="btn seachbtn">
 			</form>
 		</div>
 	</div>
@@ -34,13 +35,14 @@
 		<ul>
 			<!-- 最初のページへ << -->
 			<li style="display: inline;"><span th:if="${page.first}">
-					&lt;&lt; </span> <a th:if="${!page.first}" th:href="@{/Address/List(SeachName = *{SeachName})}">&lt;&lt;
-			</a></li>
+					&lt;&lt; </span> <a th:if="${!page.first}"
+				th:href="@{/Address/List(SeachName = *{SeachName})}">&lt;&lt; </a></li>
 
 			<!-- 前のページへ < -->
 			<li style="display: inline;"><span th:if="${page.first}">
 					&lt; </span> <a th:if="${!page.first}"
-				th:href="@{/Address/List(page = ${page.number} - 1,SeachName = *{SeachName})}">&lt; </a></li>
+				th:href="@{/Address/List(page = ${page.number} - 1,SeachName = *{SeachName})}">&lt;
+			</a></li>
 
 			<!-- 各ページ作成 1~n -->
 			<li
@@ -51,14 +53,15 @@
 				style="display: inline; margin-left: 10px;"><span
 				th:if="${i} == ${page.number}" th:text="${i + 1 + ' |'}">1</span> <a
 				th:if="${i} != ${page.number}"
-				th:href="@{/Address/List(page = ${i},SeachName = *{SeachName})}"> <span
-					th:text="${i + 1 + ' |'}">1</span>
+				th:href="@{/Address/List(page = ${i},SeachName = *{SeachName})}">
+					<span th:text="${i + 1 + ' |'}">1</span>
 			</a></li>
 
 			<!-- 次のページへ > -->
 			<li style="display: inline; margin-left: 10px;"><span
 				th:if="${page.last}"> &gt; </span> <a th:if="${!page.last}"
-				th:href="@{/Address/List(page = (${page.number} + 1),SeachName = *{SeachName})}">&gt; </a></li>
+				th:href="@{/Address/List(page = (${page.number} + 1),SeachName = *{SeachName})}">&gt;
+			</a></li>
 
 			<!-- 最終ページへ >> -->
 			<li style="display: inline; margin-left: 10px;"><span
@@ -103,17 +106,18 @@
 	</div>
 
 	<!-- ページング -->
-	<div>
+	<div class="paging" th:object="${SeachRequest}" th:method="get">
 		<ul>
 			<!-- 最初のページへ << -->
 			<li style="display: inline;"><span th:if="${page.first}">
-					&lt;&lt; </span> <a th:if="${!page.first}" th:href="@{/Address/List}">&lt;&lt;
-			</a></li>
+					&lt;&lt;</span> <a th:if="${!page.first}"
+				th:href="@{/Address/List(SeachName = *{SeachName})}">&lt;&lt; </a></li>
 
 			<!-- 前のページへ < -->
 			<li style="display: inline;"><span th:if="${page.first}">
 					&lt; </span> <a th:if="${!page.first}"
-				th:href="@{/Address/List(page = ${page.number} - 1)}">&lt; </a></li>
+				th:href="@{/Address/List(page = ${page.number} - 1,SeachName = *{SeachName})}">&lt;
+			</a></li>
 
 			<!-- 各ページ作成 1~n -->
 			<li
@@ -124,19 +128,20 @@
 				style="display: inline; margin-left: 10px;"><span
 				th:if="${i} == ${page.number}" th:text="${i + 1 + ' |'}">1</span> <a
 				th:if="${i} != ${page.number}"
-				th:href="@{/Address/List(page = ${i})}"> <span
-					th:text="${i + 1 + ' |'}">1</span>
+				th:href="@{/Address/List(page = ${i},SeachName = *{SeachName})}">
+					<span th:text="${i + 1 + ' |'}">1</span>
 			</a></li>
 
 			<!-- 次のページへ > -->
 			<li style="display: inline; margin-left: 10px;"><span
 				th:if="${page.last}"> &gt; </span> <a th:if="${!page.last}"
-				th:href="@{/Address/List(page = (${page.number} + 1))}">&gt; </a></li>
+				th:href="@{/Address/List(page = (${page.number} + 1),SeachName = *{SeachName})}">&gt;
+			</a></li>
 
 			<!-- 最終ページへ >> -->
 			<li style="display: inline; margin-left: 10px;"><span
 				th:if="${page.last}"> &gt;&gt; </span> <a th:if="${!page.last}"
-				th:href="@{/Address/List(page = (${page.totalPages-1}))}">&gt;&gt;
+				th:href="@{/Address/List(page = (${page.totalPages-1}),SeachName = *{SeachName})}">&gt;&gt;
 			</a></li>
 		</ul>
 	</div>
