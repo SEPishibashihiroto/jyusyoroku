@@ -6,7 +6,8 @@ head, body {
 }
 
 .btn {
-	width: 100px;
+	height: 25px;
+	width: 200px;
 	background-color: #777777;
 	border: 1px solid #000;
 	padding: 3px 5px;
@@ -18,4 +19,21 @@ th {
 
 th, td {
 	padding: 0 3px;
+}
+
+.cell {
+	font-size: 20px;
+}
+
+.check {
+	margin-left: 100px;
+}
+
+.leftbtn {
+	margin-top: 10px;
+}
+
+.rightbtn {
+	float: right;
+	margin-right: 350px;
 }

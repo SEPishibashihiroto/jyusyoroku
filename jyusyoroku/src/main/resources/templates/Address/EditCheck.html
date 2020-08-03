@@ -8,36 +8,41 @@
 </head>
 <body>
 	<h1>住所録管理システム：住所録編集</h1>
+
 	<form action="#" th:action="@{/Address/update}"
-		th:object="${editUserRequest}" th:method="post">
+		th:object="${editUserRequest}" th:method="post" class="check">
 		<input type="hidden" value="*{id}" th:field="*{id}">
 		<table>
 			<tr>
-				<th class="cell_title">名前</th><th>:</th>
-				<td><span th:text="*{name}" th:field="*{name}"></span></td>
+				<th class="cell">名前</th>
+				<th class="cell">:</th>
+				<td class="cell"><span th:text="*{name}" th:field="*{name}"></span></td>
 				<td><input type="hidden" value="*{name}" th:field="*{name}"></td>
 			</tr>
 			<tr>
-				<th class="cell_title">住所</th><th>:</th>
-				<td><span th:text="*{address}" th:field="*{address}"></span></td>
+				<th class="cell">住所</th>
+				<th class="cell">:</th>
+				<td class="cell"><span th:text="*{address}"
+					th:field="*{address}"></span></td>
 				<td><input type="hidden" value="*{address}"
 					th:field="*{address}"></td>
 			</tr>
 			<tr>
-				<th class="cell_title">電話番号</th><th>:</th>
-				<td><span th:text="*{tel}" th:field="*{tel}"></span></td>
+				<th class="cell">電話番号</th>
+				<th class="cell">:</th>
+				<td class="cell"><span th:text="*{tel}" th:field="*{tel}"></span></td>
 				<td><input type="hidden" value="*{tel}" th:field="*{tel}"></td>
 			</tr>
 		</table>
-		<br>
-		<br>
-		<div>
+		<br> <br>
+		<div class="leftbtn">
 			<input type="submit" value="編集" class="btn">
 		</div>
 	</form>
 
-	<form th:action="@{/Address/{id}/Edit(id=*{id})}" th:object="${editUserRequest}">
-		<input type="submit" value="戻る" class="btn">
+	<form th:action="@{/Address/{id}/Edit(id=*{id})}"
+		th:object="${editUserRequest}">
+		<input type="submit" value="戻る" class="btn rightbtn">
 	</form>
 </body>
 </html>

@@ -15,32 +15,37 @@
 		</tr>
 	</table>
 
-	<form action="#" th:action="@{/Address/editerrcheck}"
-		th:object="${editUserRequest}" th:method="post">
-		<input type="hidden" value="*{id}" th:field="*{id}">
-		<table>
-			<tr>
-				<th class="cell_title">名前</th><th>:</th>
-				<td><input type="text" th:field="*{name}" class="text"></td>
-			</tr>
-			<tr>
-				<th class="cell_title">住所</th><th>:</th>
-				<td><input type="text" th:field="*{address}" class="text"></td>
-			</tr>
-			<tr>
-				<th class="cell_title">電話番号</th><th>:</th>
-				<td><input type="text" th:field="*{tel}" class="text"></td>
-			</tr>
-		</table>
-		<br>
-		<br>
-		<div class="btn_area_center">
-			<input type="submit" value="確認" class="btn">
-		</div>
-	</form>
+	<div>
+		<form action="#" th:action="@{/Address/editerrcheck}"
+			th:object="${editUserRequest}" th:method="post" class="input">
+			<input type="hidden" value="*{id}" th:field="*{id}">
+			<table>
+				<tr>
+					<th class="cell_title">名前</th>
+					<th class="cell_title">:</th>
+					<td><input type="text" th:field="*{name}" class="text namet"></td>
 
-	<form th:action="@{/Address/List(page = 0)}">
-		<input type="submit" value="戻る" class="btn">
-	</form>
+				</tr>
+				<tr>
+					<th class="cell_title">住所</th>
+					<th class="cell_title">:</th>
+					<td><input type="text" th:field="*{address}"
+						class="text addresst"></td>
+				</tr>
+				<tr>
+					<th class="cell_title">電話番号</th>
+					<th class="cell_title">:</th>
+					<td><input type="text" th:field="*{tel}" class="text telt"></td>
+				</tr>
+			</table>
+			<br> <br>
+			<div class="leftbtn">
+				<input type="submit" value="確認" class="btn">
+			</div>
+		</form>
+		<form th:action="@{/Address/List(page = 0)}">
+			<input type="submit" value="戻る" class="btn rightbtn">
+		</form>
+	</div>
 </body>
 </html>
