@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.dto.SeachRequest;
 import com.example.demo.dto.UserRequest;
@@ -41,7 +39,6 @@ public class UserController {
 	 * @param model Model
 	 * @return 住所一覧画面
 	 */
-	//検索なし
 	@GetMapping(value = "/Address/List")
 	public String displayList(@PageableDefault(page = 0, size = 10) Pageable pageable, Model model,
 			@ModelAttribute("SeachRequest") SeachRequest SeachRequest) {
@@ -64,34 +61,50 @@ public class UserController {
 	 * @return 住所一覧画面
 	 */
 	@GetMapping(value = "/Address/Add")
-	public String displayAdd(UserRequest addUserRequest, Model model) {
-		if (addUserRequest.getName() == null) {
-			model.addAttribute("addUserRequest", new UserRequest());
-		} else {
-			model.addAttribute("addUserRequest", addUserRequest);
-			model.addAttribute("name", addUserRequest.getName());
-			model.addAttribute("address", addUserRequest.getAddress());
-			model.addAttribute("tel", addUserRequest.getTel());
-		}
+	public String displayAdd(@ModelAttribute("addUserRequest") UserRequest addUserRequest, Model model) {
+		model.addAttribute("addUserRequest", addUserRequest);
 
 		return "Address/Add";
 	}
 
 	/**
-	 * 登録確認画面を表示
+	 * ユーザー新規登録  エラー確認
+	 * @param userRequest リクエストデータ
 	 * @param model Model
-	 * @return 登録画面
+	 * @return ユーザー情報一覧画面
 	 */
-	/*
-	@PostMapping(value = "/Address/AddCheck")
-	public String displayAddCheck(@ModelAttribute("addUserRequest") UserRequest addUserRequest, Model model) {
+	@PostMapping(value = "/Address/adderrcheck")
+	public String adderrcheck(@Validated @ModelAttribute("addUserRequest") UserRequest addUserRequest,
+			BindingResult result,
+			Model model) {
+		if (result.hasErrors()) {
+			List<String> errorList = new ArrayList<String>();
+			for (ObjectError error : result.getAllErrors()) {
+				errorList.add(error.getDefaultMessage());
+			}
+			model.addAttribute("validationError", errorList);
+			model.addAttribute("addUserRequest", addUserRequest);
+			return "Address/Add";
+		}
 		model.addAttribute("addUserRequest", addUserRequest);
-		model.addAttribute("name", addUserRequest.getName());
-		model.addAttribute("address", addUserRequest.getAddress());
-		model.addAttribute("tel", addUserRequest.getTel());
 		return "Address/AddCheck";
 	}
-	*/
+
+	/**
+	 * ユーザー新規登録  登録
+	 * @param userRequest リクエストデータ
+	 * @param model Model
+	 * @return ユーザー情報一覧画面
+	 */
+	@PostMapping(value = "/Address/create")
+	public String create(@Validated @ModelAttribute("addUserRequest") UserRequest addUserRequest, BindingResult result,
+			Model model) {
+		// ユーザー情報の登録
+		model.addAttribute("addUserRequest", addUserRequest);
+		userService.create(addUserRequest);
+		return "redirect:/Address/List";
+	}
+
 	/**
 	 * 編集画面を表示
 	 * @param model Model
@@ -113,18 +126,43 @@ public class UserController {
 	}
 
 	/**
-	 * 編集確認画面を表示
+	 * 登録編集  エラー確認
+	 * @param userRequest リクエストデータ
 	 * @param model Model
-	 * @return 編集画面
+	 * @return ユーザー情報一覧画面
 	 */
-	@PostMapping(value = "/Address/EditCheck")
-	public String displayEditCheck(@ModelAttribute("editUserRequest") UserUpdateRequest editUserRequest, Model model) {
+	@PostMapping(value = "/Address/editerrcheck")
+	public String editerrcheck(@Validated @ModelAttribute("editUserRequest") UserUpdateRequest editUserRequest,
+			BindingResult result,
+			Model model) {
+		if (result.hasErrors()) {
+			List<String> errorList = new ArrayList<String>();
+			for (ObjectError error : result.getAllErrors()) {
+				errorList.add(error.getDefaultMessage());
+			}
+			model.addAttribute("validationError", errorList);
+			model.addAttribute("editUserRequest", editUserRequest);
+			return "Address/Edit";
+		}
 		model.addAttribute("editUserRequest", editUserRequest);
-		model.addAttribute("id", editUserRequest.getId());
-		model.addAttribute("name", editUserRequest.getName());
-		model.addAttribute("address", editUserRequest.getAddress());
-		model.addAttribute("tel", editUserRequest.getTel());
 		return "Address/EditCheck";
+	}
+
+	/**
+	 * 登録編集  編集
+	 * @param userRequest リクエストデータ
+	 * @param model Model
+	 * @return ユーザー情報一覧画面
+	 */
+	@PostMapping(value = "/Address/update")
+	public String update(@Validated @ModelAttribute("editUserRequest") UserUpdateRequest editUserRequest,
+			BindingResult result,
+			Model model) {
+		// ユーザー情報の登録
+		model.addAttribute("editUserRequest", editUserRequest);
+
+		userService.update(editUserRequest);
+		return "redirect:/Address/List";
 	}
 
 	/**
@@ -148,117 +186,20 @@ public class UserController {
 	}
 
 	/**
-	 * ユーザー新規登録  エラー確認
-	 * @param userRequest リクエストデータ
-	 * @param model Model
-	 * @return ユーザー情報一覧画面
-	 */
-	@RequestMapping(value = "/Address/adderrcheck", method = RequestMethod.POST)
-	public String adderrcheck(@Validated @ModelAttribute("addUserRequest") UserRequest addUserRequest,
-			BindingResult result,
-			Model model) {
-		if (result.hasErrors()) {
-			List<String> errorList = new ArrayList<String>();
-			for (ObjectError error : result.getAllErrors()) {
-				errorList.add(error.getDefaultMessage());
-			}
-			model.addAttribute("validationError", errorList);
-			model.addAttribute("addUserRequest", addUserRequest);
-			model.addAttribute("name", addUserRequest.getName());
-			model.addAttribute("address", addUserRequest.getAddress());
-			model.addAttribute("tel", addUserRequest.getTel());
-			return "Address/Add";
-		}
-		model.addAttribute("addUserRequest", addUserRequest);
-		model.addAttribute("name", addUserRequest.getName());
-		model.addAttribute("address", addUserRequest.getAddress());
-		model.addAttribute("tel", addUserRequest.getTel());
-		return "Address/AddCheck";
-	}
-
-	/**
-	 * ユーザー新規登録  登録
-	 * @param userRequest リクエストデータ
-	 * @param model Model
-	 * @return ユーザー情報一覧画面
-	 */
-	@RequestMapping(value = "/Address/create", method = RequestMethod.POST)
-	public String create(@Validated @ModelAttribute("addUserRequest") UserRequest addUserRequest, BindingResult result,
-			Model model) {
-		// ユーザー情報の登録
-		model.addAttribute("addUserRequest", addUserRequest);
-		model.addAttribute("name", addUserRequest.getName());
-		model.addAttribute("address", addUserRequest.getAddress());
-		model.addAttribute("tel", addUserRequest.getTel());
-		userService.create(addUserRequest);
-		return "redirect:/Address/List";
-	}
-
-	/**
-	 * 登録編集  エラー確認
-	 * @param userRequest リクエストデータ
-	 * @param model Model
-	 * @return ユーザー情報一覧画面
-	 */
-	@RequestMapping(value = "/Address/editerrcheck", method = RequestMethod.POST)
-	public String editerrcheck(@Validated @ModelAttribute("editUserRequest") UserUpdateRequest editUserRequest,
-			BindingResult result,
-			Model model) {
-		if (result.hasErrors()) {
-			List<String> errorList = new ArrayList<String>();
-			for (ObjectError error : result.getAllErrors()) {
-				errorList.add(error.getDefaultMessage());
-			}
-			model.addAttribute("validationError", errorList);
-			model.addAttribute("editUserRequest", editUserRequest);
-			model.addAttribute("name", editUserRequest.getName());
-			model.addAttribute("address", editUserRequest.getAddress());
-			model.addAttribute("tel", editUserRequest.getTel());
-			return "Address/Edit";
-		}
-		model.addAttribute("editUserRequest", editUserRequest);
-		model.addAttribute("name", editUserRequest.getName());
-		model.addAttribute("address", editUserRequest.getAddress());
-		model.addAttribute("tel", editUserRequest.getTel());
-		return "Address/EditCheck";
-	}
-
-	/**
-	 * 登録編集  編集
-	 * @param userRequest リクエストデータ
-	 * @param model Model
-	 * @return ユーザー情報一覧画面
-	 */
-	@RequestMapping(value = "/Address/update", method = RequestMethod.POST)
-	public String update(@Validated @ModelAttribute("editUserRequest") UserUpdateRequest editUserRequest,
-			BindingResult result,
-			Model model) {
-		// ユーザー情報の登録
-		model.addAttribute("editUserRequest", editUserRequest);
-		model.addAttribute("name", editUserRequest.getName());
-		model.addAttribute("address", editUserRequest.getAddress());
-		model.addAttribute("tel", editUserRequest.getTel());
-
-		userService.update(editUserRequest);
-		return "redirect:/Address/List";
-	}
-
-	/**
 	 * 削除  delete_flgを1にupdate
 	 * @param userRequest リクエストデータ
 	 * @param model Model
 	 * @return ユーザー情報一覧画面
 	 */
-	@RequestMapping(value = "/Address/delete", method = RequestMethod.POST)
+	@PostMapping(value = "/Address/delete")
 	public String delete(@Validated @ModelAttribute("deleteUserRequest") UserUpdateRequest deleteUserRequest,
 			BindingResult result,
 			Model model) {
-		// ユーザー情報の登録
 		String deleteflg = "1";
-		model.addAttribute("delete_flg", deleteflg);
+
 		deleteUserRequest.setDelete_flg(deleteflg);
+
 		model.addAttribute("deleteUserRequest", deleteUserRequest);
-		model.addAttribute("id", deleteUserRequest.getId());
 
 		userService.delete(deleteUserRequest);
 		return "redirect:/Address/List";

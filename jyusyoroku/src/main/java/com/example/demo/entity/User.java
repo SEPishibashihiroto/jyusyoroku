@@ -46,37 +46,4 @@ public class User implements Serializable {
 	*/
 	@Column(name = "delete_flg")
 	private String delete_flg;
-
-	public int getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public String getTel() {
-		return tel;
-	}
-
-	public String getDelete_flg() {
-		return tel;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-
 }
